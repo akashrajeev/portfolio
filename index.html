@@ -164,6 +164,7 @@ nav{background:linear-gradient(#0b0b0c 55%,#0b0b0c00);mix-blend-mode:normal;padd
 @media(max-width:800px){.pm{min-height:58vh;height:auto;aspect-ratio:auto}}
 .row[data-i="6"] .t{font-size:4.9vw}
 @media(max-width:800px){.row[data-i="6"] .t{font-size:11.5vw}}
+@media(max-width:800px){.stage{height:min(78vh,560px)}.pm{min-height:480px}}
 </style></head><body>
 <h1 class="sr" id="h1">Akash Rajeev</h1><canvas id="gl"></canvas><div class="cur" id="cur"></div>
 <div class="fb">Akash<br>Rajeev</div><nav><a href="#top">Akash Rajeev</a><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
@@ -371,25 +372,26 @@ ST[1]={build(host){host.innerHTML='';
  const L=on?['Can we all do dinner Thursday?','Thursday evening works. I will keep individual schedules private.','Is anyone busy that night? Why?','I cannot say. Here are two times that suit everyone.']:['Can we all do dinner Thursday?','Thursday is tricky for one of you.','So who is busy? Can they do Friday?','Friday is free for everyone, apart from the person who has plans Thursday.'];
  const st=[.4,2,3.8,5.4];r.m.forEach((m,i)=>{const t=typed(L[i],st[i],lt);m.textContent=t;m.style.opacity=t?1:0;m.style.borderColor=(i===3&&!on)?'#ff6b4a':'';});
  const k=ease(clamp((lt-5.4)/2.2));
- const offT=[1,.06,.05,.04],offB=[.42,.4,.33,.28],onT=[.5,.5,.08,.06];
- r.bars.forEach((B,i)=>{const w=on?onT[i]*(.94+.06*Math.sin(tl*1.3+i)):(offB[i]*(1-k)+offT[i]*k);
-  B.b.style.width=(w*100)+'%';
+ r.bars.forEach((B,i)=>{let w;
+  if(on){const d=1.5*Math.sin(tl*1.3);w=[50+d,50-d,0,0][i];}
+  else{const from=[25,25,25,25],to=[100,0,0,0];w=from[i]*(1-k)+to[i]*k;}
+  B.b.style.width=w+'%';
   B.b.style.background=(!on&&i===0&&k>.5)?'#ff6b4a':(on&&i<2?'#ece8dd99':'#ece8dd40');
-  B.p.textContent=Math.round(w*100)+'%';});
- r.inf.innerHTML=on?'<span style="color:#d7d3c7">Two days stay equally likely. The replies, together, give nothing away - and dinner still gets planned.</span>':'<span style="color:#ff6b4a">Two harmless-looking replies combine into a single answer: Thursday, 100%.</span>';
+  B.p.textContent=Math.round(w)+'%';});
+ r.inf.innerHTML=on?'<span style="color:#d7d3c7">Two days stay equally likely, 50 / 50. The replies, together, give nothing away - and dinner still gets planned.</span>':'<span style="color:#ff6b4a">Two harmless-looking replies combine into a single answer: Thursday, 100%.</span>';
  r.vg.textContent=on?'ON':'OFF';r.vg.style.color=on?'':'#ff6b4a';}};
 // ---- 2 Ouroboros
 ST[2]={build(host){host.innerHTML='';const r={};
  const L=put(host,'<div class="ab" style="left:0;top:0;width:45%;height:100%"></div>');
  put(L,'<div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8d897e;margin-bottom:12px">The form on the page</div>');
  const F=['Full name','PAN','Aadhaar','Email'];
- r.f=F.map((f,i)=>{const w=put(L,'<div class="ab" style="left:0;right:0;top:'+(32+i*56)+'px"><div style="font-size:10px;color:#8d897e;margin-bottom:4px">'+f+'</div><div class="fld" style="border:1px solid #ece8dd2e;border-radius:8px;padding:7px 10px;font-size:12px;min-height:31px;background:#ffffff06"></div></div>');return w.querySelector('.fld')});
- put(host,'<div class="ab" style="left:46%;top:34%;width:8%;text-align:center;font-size:18px;color:#8d897e">&rarr;</div>');
+ r.f=F.map((f,i)=>{const w=put(L,'<div class="ab" style="left:0;right:0;top:'+(7+i*14)+'%"><div style="font-size:10px;color:#8d897e;margin-bottom:4px">'+f+'</div><div class="fld" style="border:1px solid #ece8dd2e;border-radius:8px;padding:7px 10px;font-size:12px;min-height:31px;background:#ffffff06"></div></div>');return w.querySelector('.fld')});
+ put(host,'<div class="ab" style="left:46%;top:32%;width:8%;text-align:center;font-size:18px;color:#8d897e">&rarr;</div>');
  const R=put(host,'<div class="ab" style="left:56%;top:0;width:44%;height:100%"></div>');
  put(R,'<div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8d897e;margin-bottom:12px">What the agent receives</div>');
- r.snap=put(R,'<div class="ab" style="left:0;right:0;top:32px;bottom:96px;border:1px solid #ece8dd1f;border-radius:10px;padding:12px;font-size:11px;line-height:2.1;background:#0d0d10"></div>');
- r.scan=put(R,'<div class="ab" style="left:-4px;right:-4px;height:1px;top:32px;background:var(--ac);box-shadow:0 0 12px var(--ac);opacity:0"></div>');
- r.gate=put(R,'<div class="ab" style="left:0;right:0;bottom:52px;font-size:11px;line-height:1.5"></div>');
+ r.snap=put(R,'<div class="ab" style="left:0;right:0;top:7%;bottom:30%;border:1px solid #ece8dd1f;border-radius:10px;padding:12px;font-size:11px;line-height:2.1;background:#0d0d10"></div>');
+ r.scan=put(R,'<div class="ab" style="left:-4px;right:-4px;height:1px;top:7%;background:var(--ac);box-shadow:0 0 12px var(--ac);opacity:0"></div>');
+ r.gate=put(R,'<div class="ab" style="left:0;right:0;bottom:15%;font-size:11px;line-height:1.5"></div>');
  r.cap=put(host,'<div class="ab" style="left:0;right:0;bottom:0;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8d897e">Real values stay in the extension - the planner only receives tokens</div>');
  return r},
  draw(r,tl){const ph=tl%16;
@@ -402,7 +404,7 @@ ST[2]={build(host){host.innerHTML='';const r={};
  if(sneak)rows+='<div style="color:'+(blocked?'#ff6b4a':'#d7d3c7')+'">ABCDE1234F'+(blocked?' &nbsp;&#10007; blocked at the gate':'')+'</div>';
  r.snap.innerHTML=rows;
  const sh=r.snap.offsetHeight||200;const sy=clamp((ph-7)/4.5);
- r.scan.style.opacity=(ph>7&&ph<12.4)?1:0;r.scan.style.top=(32+sy*sh)+'px';
+ r.scan.style.opacity=(ph>7&&ph<12.4)?1:0;r.scan.style.top='calc(7% + '+(sy*sh)+'px)';
  r.gate.innerHTML=ph>12.6?'<span style="color:var(--ac)">&#10003; Payload re-scanned. No raw value left the page.</span>':(ph>7?'<span style="color:#8d897e">Leak gate re-scanning every outbound payload...</span>':'');}};
 // ---- 3 VoiceBeam
 ST[3]={build(host){host.innerHTML='';const r={};
